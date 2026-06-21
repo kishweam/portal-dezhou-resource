@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德州扑克游戏 | 简明指南 · 访问提醒 · 策略入门</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #1f2a3a;
+            line-height: 1.7;
+            padding: 24px 16px;
+        }
+
+        .page {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* === Card & shadow 风格 === */
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e8e8ed;
+            padding: 32px 28px;
+            transition: box-shadow 0.25s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        /* === Hero 区 === */
+        .hero {
+            text-align: center;
+            padding: 48px 28px 40px;
+            background: linear-gradient(145deg, #fafafa, #ffffff);
+            border-bottom: 1px solid #e2e2e8;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0b1a2b;
+            margin-bottom: 16px;
+        }
+
+        .hero .sub {
+            font-size: 1.2rem;
+            color: #445566;
+            max-width: 680px;
+            margin: 0 auto 22px;
+        }
+
+        .hero .meta-line {
+            display: inline-block;
+            background: #eef1f5;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            color: #2f4055;
+            border: 1px solid #d9dee5;
+        }
+
+        /* === 两列布局（优势 + 说明） === */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            font-weight: 550;
+            margin-bottom: 18px;
+            border-left: 5px solid #3e6b89;
+            padding-left: 14px;
+            color: #1a2c3f;
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 540;
+            margin: 22px 0 8px;
+            color: #1f384e;
+        }
+
+        .card p {
+            margin-bottom: 14px;
+            color: #2d3f54;
+        }
+
+        .card ul {
+            padding-left: 22px;
+            margin-bottom: 14px;
+        }
+
+        .card ul li {
+            margin-bottom: 8px;
+            list-style-type: disc;
+        }
+
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 12px;
+            margin-top: 10px;
+        }
+
+        .advantage-item {
+            background: #f6f8fa;
+            border-radius: 14px;
+            padding: 14px 14px 12px;
+            border: 1px solid #e4e8ed;
+        }
+
+        .advantage-item strong {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #1d3449;
+        }
+
+        .advantage-item span {
+            font-size: 0.9rem;
+            color: #3b546b;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9edf2;
+            padding: 14px 0;
+        }
+
+        .faq-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 550;
+            margin-bottom: 5px;
+            color: #1b3144;
+        }
+
+        .faq-a {
+            color: #3d5770;
+            font-size: 0.96rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid #e4e8ed;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .footer-links .copy {
+            color: #607487;
+            font-size: 0.9rem;
+        }
+
+        .footer-links .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px 24px;
+        }
+
+        .footer-links a {
+            color: #2c4b66;
+            text-decoration: none;
+            font-weight: 450;
+            border-bottom: 1px dotted transparent;
+            transition: border-color 0.2s;
+        }
+
+        .footer-links a:hover {
+            border-bottom: 1px dotted #2c4b66;
+        }
+
+        .inline-link {
+            color: #2b5a7a;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #bccad8;
+            transition: color 0.2s, text-decoration-color 0.2s;
+        }
+
+        .inline-link:hover {
+            color: #103a56;
+            text-decoration-color: #103a56;
+        }
+
+        .btn-soft {
+            display: inline-block;
+            background: #eef2f6;
+            border: 1px solid #cfd8e2;
+            padding: 8px 22px;
+            border-radius: 40px;
+            color: #1f3c54;
+            font-size: 0.95rem;
+            font-weight: 480;
+            text-decoration: none;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .btn-soft:hover {
+            background: #e3eaf2;
+            border-color: #b2c1d0;
+        }
+
+        /* 响应式 */
+        @media (max-width: 780px) {
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .hero h1 {
+                font-size: 2.1rem;
+            }
+            .hero .sub {
+                font-size: 1.05rem;
+            }
+            .advantage-grid {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 24px 18px;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 10px;
+            }
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- Hero -->
+    <section class="card hero">
+        <h1>德州扑克 · 简明指南</h1>
+        <p class="sub">从手牌解读到位置意识，慢慢建立自己的节奏。适合喜欢思考型牌戏的朋友。</p>
+        <div class="meta-line">♠️ 翻牌前 · 翻牌后 · 河牌圈 · 底池控制</div>
+    </section>
+
+    <!-- 两列：左侧优势 / 右侧说明 -->
+    <div class="two-column">
+        <!-- 优势区 -->
+        <section class="card">
+            <h2>为什么越来越多玩家选择它</h2>
+            <div class="advantage-grid">
+                <div class="advantage-item">
+                    <strong>🧠 策略深度</strong>
+                    <span>概率、位置、对手阅读，每一步都有推演空间。</span>
+                </div>
+                <div class="advantage-item">
+                    <strong>🎯 节奏可控</strong>
+                    <span>现金桌或锦标赛，按自己舒适的速度来。</span>
+                </div>
+                <div class="advantage-item">
+                    <strong>👥 社交属性</strong>
+                    <span>牌桌对话、肢体语言解读，牌局也是交流。</span>
+                </div>
+                <div class="advantage-item">
+                    <strong>📈 持续成长</strong>
+                    <span>复盘手牌、调整范围，每次都有新体会。</span>
+                </div>
+            </div>
+            <p style="margin-top: 18px;">
+                对新手而言，最值得花时间理解的是位置和底池赔率，比单纯记起手牌更有帮助。
+            </p>
+        </section>
+
+        <!-- 说明区 -->
+        <section class="card">
+            <h2>如何开始？几点提醒</h2>
+            <p>不论你在线下俱乐部还是线上平台尝试，都需要先了解基础规则和常规礼仪。以下是一些实用的出发点：</p>
+            <ul>
+                <li><strong>规则先熟悉：</strong> 翻牌、转牌、河牌，以及下注轮次，至少模拟几局再上桌。</li>
+                <li><strong>选择合适级别：</strong> 从低买入或小额桌开始，避免一开始就面对高压对抗。</li>
+                <li><strong>注意节奏：</strong> 不要急于玩太多手牌，耐心比激进更不容易犯错。</li>
+                <li><strong>观察牌桌：</strong> 留意对手的下注模式，即使不参与底池也有信息可收集。</li>
+            </ul>
+            <p style="margin-top: 6px;">
+                如果你正在寻找一个可以练习和切磋的线上地方，可以了解一下
+                <a href="https://portal-dezhou.com" class="inline-link">德州扑克游戏</a>
+                平台，它提供了多种桌型和段位分区，适合不同阶段的玩家。
+            </p>
+        </section>
+    </div>
+
+    <!-- FAQ 摘要区 -->
+    <section class="card">
+        <h2>常见疑问 · 快速浏览</h2>
+        <div class="faq-item">
+            <div class="faq-q">❓ 新手需要先学很多数学吗？</div>
+            <div class="faq-a">不需要很深，理解基础概率（如听牌胜率）和底池赔率概念就能开始，实战中慢慢积累。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">❓ 线上和线下差别大吗？</div>
+            <div class="faq-a">线上节奏更快，多桌同时进行；线下更侧重阅读对手和身体语言。两种环境各有乐趣，建议都尝试。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">❓ 如何避免上头（tilt）？</div>
+            <div class="faq-a">设定每场损失上限，打牌时保持轻松心态。连续输掉几个底池后暂时离桌休息，比硬撑更有效。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">❓ 提升水平最直接的方法？</div>
+            <div class="faq-a">每次打完牌后复盘一手关键牌，思考自己的下注逻辑和对手可能的范围。坚持整理手牌记录进步很快。</div>
+        </div>
+    </section>
+
+    <!-- 底部链接区 -->
+    <footer class="footer-links">
+        <div class="copy">
+            © 德州扑克 · 简明指南
+        </div>
+        <div class="nav-links">
+            <a href="https://portal-dezhou.com">德州扑克游戏</a>
+            <a href="#" class="btn-soft">策略笔记</a>
+            <a href="#" class="btn-soft">牌局术语</a>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
